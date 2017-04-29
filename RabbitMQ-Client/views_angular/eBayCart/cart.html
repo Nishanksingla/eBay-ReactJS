@@ -1,0 +1,140 @@
+<div class="container" ng-controller="cartController" ng-init="getCart()">
+	<div class="row">
+		<h2 style="margin-bottom:50px">Your eBay Shopping Cart</h2>
+		<div class="col-md-9" style="background-color: white;padding:18px;border: 1px solid #ddd;border-radius: 3px;box-shadow: 3px 0px 6px lightgray;">
+			<div class="row" ng-repeat="item in cartItems" style="margin:0px;border: 1px solid #ddd;margin-bottom: 20px;">
+				<div class="col-md-12" style="padding: 0;min-height: 33px;line-height: 32px;background-color: #eee;padding-left: 15px;">
+					<span style="color: #666;font-size: medium;">Seller</span>
+					<a href="#">{{item.sellerInfo.firstname}}</a>
+				</div>
+				<div class="col-md-12" style="padding: 15px;">
+					<div class="row" style="margin: 0;">
+						<div class="col-md-2" style="padding: 0;width: 20%;">
+							<img alt="100%x180" data-src="holder.js/100%x180" style="height: 144px;width: 144px; display: block;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTcxIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE3MSAxODAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MTgwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTU3ZjRiYjUwY2YgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNTdmNGJiNTBjZiI+PHJlY3Qgd2lkdGg9IjE3MSIgaGVpZ2h0PSIxODAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI1OS41NTQ2ODc1IiB5PSI5NC41Ij4xNzF4MTgwPC90ZXh0PjwvZz48L2c+PC9zdmc+"
+								data-holder-rendered="true">
+						</div>
+						<div class="col-md-5">
+							<h3 style="margin: 0;margin-bottom: 10px;"><a href="#">{{item.title}}</a></h3>
+							<span style="color: #888;font-size: small;">Condition:</span>
+							<span style="color: #888;font-size: small;">{{item.condition}}</span>
+						</div>
+						<div class="col-md-2" style="padding:0">
+							<label style="font-size: 85%;font-weight: normal;color: #777;">Quantity: </label>
+							<input type="text" ng-value="item.selectedQuantity" ng-change="quantityChange($index)" ng-model="quantity" style="width: 40px;
+								height: 18px;
+								background: #fff;
+								border: 1px solid #ddd;
+								box-shadow: 0 1px 0 rgba(255,255,255,0.8),inset 0 1px 2px rgba(0,0,0,0.06);
+								-webkit-border-radius: 3px;
+								-moz-border-radius: 3px;
+								border-radius: 3px;
+								margin: 0;
+								font-size: .857em;
+								padding: .2em;
+								text-align: left;" />
+								<br/>
+								<span style="color: #666;font-size: xx-small;">{{item.quantity + " available"}}</span><br/>
+								<a href="" style="cursor:pointer" ng-click="update($index)" ng-show="updateStatus[$index]" >Update</a>
+						</div>
+						<div class="col-md-2" style="text-align: right; width: 21%;padding-right: 0px;">
+							$<label style="font-size: larger;">{{item.price}}</label>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12" style="text-align:right;margin-bottom:15px">
+					<a style="font-size: 1.1em; cursor:pointer" ng-click="removeItem($index)">Remove</a>
+					<span style="color: #ddd;margin: 0px 6px;font-size: 1.2em;">|</span>
+					<a href="#" style="font-size: 1.1em;"> Save for later</a>
+				</div>
+			</div>
+			<div ng-show="numItems===0">
+				<div class="cart_sci clr666 fs16 ">
+					<div style="font-weight: bold;
+						color: #666;
+						font-size: large;
+						margin-bottom: 10px;">
+						Your shopping cart is empty, but it doesn't have to be.
+					</div>
+					<div style="color: #666;font-size: medium;">There are lots of great deals and one-of-a-kind items just waiting for you.</div>
+					<div style="color: #666;font-size: medium;padding: 8px 0px;">Start shopping, and look for the "Add to cart" button. You can add several items to your cart from different sellers
+						and pay for them all at once.</div>
+					<ul class="lh22 mt10 pl60">
+						<li><a href="http://www.ebay.com">Start shopping and search for great deals</a></li>
+						<li><a href="http://my.ebay.com/ws/eBayISAPI.dll?MyEbayBeta&amp;ssPageName=STRK:ME:LNLK:MEWAX">Go to My eBay and see items that you're watching</a></li>
+					</ul>
+				</div>
+			</div>
+			<div ng-hide="numItems===0" class="row">
+				<div class="col-md-5"></div>
+				<div class="col-md-7">
+					<div style="padding-right: 15px;">
+						<table style="width: 100%;text-align: right;">
+							<tbody>
+								<tr>
+									<td style="width:85%">
+										<div class="tr">{{"Subtotal ("+numItems+" items)"}}:</div>
+									</td>
+									<td>
+										<div class="nowrap tr normal">{{"$"+total}}</div>
+									</td>
+								</tr>
+								<tr style="height:30px">
+									<td>
+										<div class="tr"><span>
+											Shipping:</span></div>
+									</td>
+									<td>
+										<div class="tr nowrap">FREE</div>
+									</td>
+								</tr>
+								<tr style="height:40px;font-size: large;font-weight: bold;border-top: 1px solid lightgray;border-bottom: 1px solid lightgray;">
+									<td>
+										<div>Total: </div>
+									</td>
+									<td class="nowrap ">
+										<div>{{"$"+total}}</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div style="margin-top: 15px;padding-right: 15px;text-align: right;">
+						
+							<a style="color: #0654ba;
+								border-width: 1px;
+								border-style: solid;
+								border-color: #ddd;
+								text-decoration: none;border-radius: 3px;
+								-webkit-box-shadow: 0 3px 0 rgba(0,0,0,.2);
+								-moz-box-shadow: 0 3px 0 rgba(0,0,0,.2);
+								box-shadow: 0 3px 0 #ddd;font-size: 16px;font-weight:700;
+    							background: -webkit-gradient(linear,left top,left bottom,from(#fefefe),to(#f8f8f8));" 
+								class="btn btn-primary" href="/" target="" role="button">
+								Continue shopping
+							</a>
+								
+							<a style="cursor:pointer;border-radius: 3px;-webkit-box-shadow: 0 3px 0 rgba(0,0,0,.2);-moz-box-shadow: 0 3px 0 rgba(0,0,0,.2);
+								box-shadow: 0 3px 0 #ddd;background: -webkit-gradient(linear,left top,left bottom,from(#0079bc),to(#00509d));font-size: 16px;font-weight: 700;margin-left: 15px;" 
+								class="btn btn-primary" ng-click="checkout()" target="" role="button">
+								Proceed to checkout
+							</a>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-2" style="
+				padding-left: 15px;
+				margin-left: 35px;
+				width: 22%;padding-bottom: 20px;border: 1px solid #ddd;
+				border-radius: 3px;
+				background-color: #fff;
+				box-shadow: 4px 4px 1px lightgray;">
+			<h3 style="border-bottom: 1px solid #999;padding-bottom: 10px;font-size: 22px;">Cart Summary<span style="font-size: 12px;color: #777;margin-left: 5px;">{{"( "+numItems+" items)"}}</span></h3>
+			<h3 style="margin-top: 15px;  font-size: 22px;"> {{"Total: $"+total}}</h3>
+			<button ng-class="{ 'disabled': numItems===0 }" style="background: -webkit-gradient(linear,left top,left bottom,from(#0079bc),to(#00509d));width: 100%;font-size: 16px;font-weight: 700;"
+				class="btn btn-primary" ng-disabled="numItems===0" ng-click="checkout()">Proceed to checkout</button>
+		</div>
+	</div>
+</div>

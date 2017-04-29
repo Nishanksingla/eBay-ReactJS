@@ -1,0 +1,109 @@
+<style>
+    		.activeBtn {
+			background-color: #555;
+			color: #FFF!important;
+		}
+</style>
+<div class="container" ng-controller="sellController">
+	<form ng-submit="sellitem()">
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-9" style="border: 1px solid #ddd;border-radius: 3px;background-color: #fff;padding: 17px 30px;margin-bottom: 20px;">
+			<h3>Describe your item</h3>
+			<div class="row" style="margin-top: 30px;">
+				<div class="col-md-3">
+					<label>Categories</label>
+				</div>
+				<div class="col-md-9">
+					<select style="padding:5px" ng-model="item.category" required>
+						<option value="">--Select--</option>
+                        <option ng-repeat="(key,value) in categories" ng-value="key">{{value}}</option>	
+                    </select>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 30px;">
+				<div class="col-md-3">
+					<label>Title</label>
+				</div>
+				<div class="col-md-9">
+					<input type="text" class="form-control" required ng-model="item.title" />
+				</div>
+			</div>
+			<div class="row" style="margin-top: 30px;">
+				<div class="col-md-3">
+					<label>Condition</label>
+				</div>
+				<div class="col-md-9">
+					<select id="condition" name="condition" size="1" tabindex="0" aria-required="true" required ng-model="item.condition">	
+                        <option value="">--Select--</option>
+                        <option ng-repeat="(key,value) in conditions" ng-value="key">{{value}}</option>	
+                    </select>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 30px;">
+				<div class="col-md-3">
+					<label>Details</label>
+				</div>
+				<div class="col-md-9">
+					<textarea class="form-control" rows="5" id="comment" required ng-model="item.details"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-9" style="border: 1px solid #ddd;border-radius: 3px;background-color: #fff;padding: 17px 30px;margin-bottom: 20px;">
+			<h3>Select format and price</h3>
+			<div class="row" style="margin-top: 30px;">
+				<div class="col-md-3">
+					<label>Listing format</label>
+				</div>
+				<div class="col-md-9">
+					<div class="row">
+						<div class="col-md-5" ng-repeat="listingFormat in listingFormats">
+							<span style="font-size:12px;margin-bottom: 10px;display: block;">{{listingFormat.text}}</span>
+							<button class="btn btn-default" ng-click="select($index)" ng-class="{activeBtn : $index===selectedFormat}" role="button" style="width:100%">{{listingFormat.btnName}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 30px;" ng-show="selectedFormat===0">
+				<div class="col-md-3">
+					<label>Starting price</label>
+				</div>
+				<div class="col-md-9">
+					<div class="input-group" style="width: 30%;">
+						<span class="input-group-addon" style="font-size:bold">$</span>
+						<input type="text" class="form-control" ng-model="item.startingprice" ng-required="selectedFormat===0">
+					</div>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 30px;" ng-hide="selectedFormat===0">
+				<div class="col-md-3">
+					<label>Price</label>
+				</div>
+				<div class="col-md-9">
+					<div class="input-group" style="width: 30%;">
+						<span class="input-group-addon" style="font-size:bold">$</span>
+						<input type="text" class="form-control" ng-model="item.price" ng-required="selectedFormat===1">
+					</div>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 30px;" ng-hide="selectedFormat===0">
+				<div class="col-md-3">
+					<label>Quantity</label>
+				</div>
+				<div class="col-md-9">
+					<input  style=" width: 30%;" type="number" class="form-control" ng-model="item.quantity" ng-required="selectedFormat===1" value="1" />
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row">
+		<div class="col-md-1"></div>
+        <div class="col-md-9" style="text-align:right">
+            <button class="btn btn-primary" type="submit" style="color: #fff;font-size: medium;padding: 8px 30px;font-weight: bold;">List it</button>
+        </div>
+    </div>
+	</form>
+</div>

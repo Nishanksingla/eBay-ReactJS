@@ -1,0 +1,85 @@
+<div class="container" ng-controller="productController" ng-init="getProduct()">
+	<div class="row">
+		<div class="col-md-4" style="height: 400px;margin-top: 20px;background: white;border: 1px solid lightgray;padding: 5px;">
+			<img alt="100%x200" data-src="holder.js/100%x200" style="height: 388px; width: 100%; display: block;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDI0MiAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTU4MDNkZTU2N2IgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMnB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNTgwM2RlNTY3YiI+PHJlY3Qgd2lkdGg9IjI0MiIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI4OS44NTkzNzUiIHk9IjEwNS40Ij4yNDJ4MjAwPC90ZXh0PjwvZz48L2c+PC9zdmc+"
+				data-holder-rendered="true">
+		</div>
+		<div class="col-md-7" style="margin-left:20px">
+			<div class="row">
+				<div class="col-md-12" style="margin-bottom: 10px;border-bottom: 1px solid lightgray;">
+					<h3 style="margin-bottom: 20px;">{{product.title}}</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<span style="width:15%;float:left;margin-right: 12px;">Item Condition:</span><label>{{product.condition}}</label>
+					<br/>
+					<div ng-show="product.price">
+						<span style="float: left;width: 15%;text-align: right;margin-right: 12px;">Quantity:</span>
+						<input type="text" ng-model="quantity" value="1" style="width: 6%;
+							border-width: 1px;
+							border-style: solid;
+							border-color: rgb(153, 153, 153);
+							border-radius: 3px;padding:1px 1px 1px 4px" />
+						<span style="margin-left:50px">{{product.quantity+" available"}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 10px;">
+				<div class="col-md-7" style="background: #e2e2e2;border: 1px solid #ddd;border-radius: 3px;box-shadow: 4px 4px 1px #eee;padding-top: 20px;padding-bottom: 20px;height: 200px;">
+					<div class="row" ng-show="product.price">
+						<div class="col-md-6" style="padding-right: 0;">
+							<span style="float: left;width: 56%;text-align: right;margin-right: 18px;">Price:</span><label>{{'US $'+product.price}}</label><br/>
+						</div>
+						<div class="col-md-6">
+							<button class="btn btn-primary" ng-click="buyitnow()" style="width: 128px;font-size: 16px;font-weight: 700;background: -webkit-gradient(linear,left top,left bottom,from(#0079bc),to(#00509d));margin-bottom: 10px;padding-bottom: 5px;padding-top: 5px;">
+								Buy It Now
+							</button><br/>
+							<button class="btn btn-primary" style="width: 128px;font-size: 16px;font-weight: 700;background: -webkit-gradient(linear,left top,left bottom,from(#45aad6),to(#2386c0));padding-bottom: 5px;padding-top: 5px;"
+								ng-click="addtocart()">
+								Add to cart
+							</button>
+						</div>
+					</div>
+					<div class="row" ng-hide="product.price">
+						<form ng-submit="placebid()">
+						<div class="col-md-6">
+							<span style="float: left;width: 56%;text-align: right;margin-right: 18px;">Current bid:</span>
+							<label>{{'US $'+product.bid_price}}</label>
+							<br/>
+							<input type="text" ng-model="bid_price" style="float: right;width: 50%;margin-top: 10px;" required/>
+							
+							<br/>
+							<div style="font-size:10px;display: block;margin-top: 20px;text-align: right;">
+							Enter US $ 
+							<span ng-bind="{{product.bid_price + 1 }}"></span>
+							or more
+							</div>
+						</div>
+						<div class="col-md-6">
+							<span style="display: block;margin-bottom: 10px;">
+								[<a style="margin: 0px 8px;" href="#">{{product.num_bids + " bids"}}</a>]
+							</span>
+							<!--<br/>-->
+							<button class="btn btn-primary" type="submit" style="width: 128px;font-size: 16px;font-weight: 700;background: -webkit-gradient(linear,left top,left bottom,from(#0079bc),to(#00509d));margin-bottom: 10px;padding-bottom: 5px;padding-top: 5px;">
+								Place bid
+							</button><br/>
+							
+						</div>
+						</form>
+					</div>
+				</div>
+				<div class="col-md-4" style="background: white;margin-left: 20px;border: 1px solid #ccc;border-radius: 3px;
+					box-shadow: 4px 4px 1px #eee;
+					height: 200px;
+					padding: 0;
+					width: 38%;
+					padding-left: 15px;">
+					<h4>Seller Information</h4>
+					<span style="margin-right: 8px;">Name:</span><span>{{product.sellerInfo.firstname+" " + product.sellerInfo.lastname}}</span><br/>
+					<span style="margin-right: 8px;">Email ID:</span><span>{{product.sellerInfo.username}}</span><br/>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

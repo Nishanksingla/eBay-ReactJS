@@ -1,0 +1,283 @@
+<style>
+	.panel-default>.panel-heading {
+		display: none;
+	}
+</style>
+<div class="container" ng-controller="checkoutController" style="margin-top:10px" ng-init="initialize()">
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-7" style="padding-left: 0;    width: 54%;">
+			<h2 style="margin-bottom: 20px;
+                font-size: 35px;margin-left: 125px;font-weight: 200;margin-top: 8px;">
+				<a href="/" _sp="m570.l2586" id="gh-la">
+				<img role="presentation" width="250" height="200" style="clip:rect(47px, 118px, 95px, 0px); position:absolute; top:-47px;left:0"
+						alt="" src="images/ebay.png" id="gh-logo">
+				</a> Checkout</h2>
+			<div class="row">
+				<div class="col-md-12">
+					<h4>Pay with</h4>
+					<ul class="list-group">
+						<li class="list-group-item">
+							<input type="radio" name="pmtMthd" ng-change="selectPayment()" ng-model="paymentMethod" value="paypal" aria-label="Opens PayPal log in dialog Select a payment option">
+							<label class="pmt-label" for="PAYPAL" style="display: inline-block;vertical-align: middle;margin-left: 8px;margin-top: 4px;margin-bottom: 0;">
+                                <span style="background-position: -11px -632px;
+                                width: 66px;height: 19px;background-image: url(images/paymentMethods.svg);
+                                background-repeat: no-repeat;
+                                background-size: 248px 1215.5px;display: block;" 
+                                class="PAYPAL pmt-logo" alt="PAYPAL">
+								</span>
+							</label>
+						</li>
+						<li class="list-group-item">
+							<input type="radio" name="pmtMthd" ng-change="selectPayment()" ng-model="paymentMethod" value="paypalCredit" aria-label="Opens PayPal log in dialog Select a payment option">
+							<label class="pmt-label" for="PAYPAL" style="display: inline-block;vertical-align: middle;margin-left: 8px;margin-top: 4px;margin-bottom: 0;">
+                                <span style="background-position: -11px -564px;width: 62px;height: 22px;
+                                background-image: url(images/paymentMethods.svg);
+                                background-repeat: no-repeat;
+                                background-size: 248px 1215.5px;display: block;vertical-align: middle;" 
+                                class="PAYPAL pmt-logo" alt="PAYPAL">
+								</span>
+							</label>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col-md-7">
+									<input type="radio" name="pmtMthd" ng-change="selectPayment()" ng-model="paymentMethod" value="card" aria-label="Credit or debit card Select a payment option">
+									<label class="pmt-label" for="CC" style="margin-left: 8px;color: #333;font-weight: 300;font-size: medium;">
+										<span class="cc-icon mr8" style="
+											background-image: url(images/paymentMethods.svg);
+											background-repeat: no-repeat;
+											background-size: 248px 1215.5px;
+											display: inline-block;
+											vertical-align: middle;background-position: -11px -506px;
+											width: 34px;height: 22px;margin-right: 8px;">
+										</span>
+                                   		Credit or debit card
+                            		</label>
+								</div>
+								<div ng-show="card" class="col-md-5" style="text-align: right;padding-top: 2px;">
+									<span style="font-size: smaller;color: #777;">Added Card Ending in</span>
+									<span>{{" "+(card.number).substr(card.number.length - 4)}}</span>
+									<button type="button" class="btn btn-default" aria-label="Left Align" style="border: none;padding: 0;" ng-click="status.open= !status.open">
+                                        <span ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}" class="glyphicon" aria-hidden="true"></span>
+                                    </button>
+								</div>
+							</div>
+
+							<uib-accordion ng-show="status.open">
+								<div uib-accordion-group class="panel-default" is-open="status.open">
+									<uib-accordion-heading>
+										I can have markup, too!
+									</uib-accordion-heading>
+									<form name="cardForm" ng-submit="addCard()">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="row" style="margin-bottom: 15px;">
+													<div class="col-md-6">
+														<input type="text" required class="form-control" placeholder="Card number" ng-model="card.number" />
+													</div>
+												</div>
+												<div class="row" style="margin-bottom: 15px;">
+													<div class="col-md-6">
+														<input type="text" required class="form-control" placeholder="Expiration date(MM/YY)" ng-model="card.expiration" />
+													</div>
+													<div class="col-md-6">
+														<input type="text" required class="form-control" placeholder="Security code" ng-model="card.securityCode" />
+													</div>
+												</div>
+												<div class="row" style="margin-bottom: 15px;">
+													<div class="col-md-6">
+														<input type="text" required class="form-control" placeholder="First name" ng-model="user.firstname" />
+													</div>
+													<div class="col-md-6">
+														<input type="text" required class="form-control" placeholder="Last name" ng-model="user.lastname" />
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-12" style="text-align:right">
+														<a ng-click="cancel()" style="margin-right: 10px; cursor:pointer">Cancel</a>
+														<button class="btn btn-primary" type="submit">Done</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</uib-accordion>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-12">
+					<h4>Ship to</h4>
+					<div style="border: 1px solid lightgray;background-color: white;border-radius: 3px;padding: 10px;">
+						<div ng-hide="addressLength===0">
+							<div>{{user.firstname + " " + user.lastname}}</div>
+							<div>{{address.streetaddress+", "+address.streetaddress2}}</div>
+							<div>{{address.city+", "+address.state+" "+address.zip }}</div>
+							<div>{{address.country}}</div>
+							<div>{{address.phonenumber}}</div>
+						</div>
+						<a ng-hide="addressLength===0" ng-click="addNewAddress()" style="margin-right: 10px;margin-bottom: 10px; cursor:pointer;display: block;margin-top: 5px;">Edit address</a>
+						<a ng-show="addressLength===0" ng-click="addNewAddress()" style="margin-right: 10px;margin-bottom: 10px; cursor:pointer;display: block;margin-top: 5px;">Add a new address</a>
+						<uib-accordion ng-show="newAddress">
+							<div uib-accordion-group class="panel-default" is-open="newAddress">
+								<uib-accordion-heading>
+									<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+								</uib-accordion-heading>
+								<form name="addressForm" ng-submit="saveAddress()">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="row" style="margin-bottom: 15px;">
+												<div class="col-md-6">
+													<input type="text" required class="form-control" placeholder="Country or region" ng-model="address.country" />
+												</div>
+											</div>
+											<div class="row" style="margin-bottom: 15px;">
+												<div class="col-md-6">
+													<input type="text" required class="form-control" placeholder="First name" ng-model="user.firstname" />
+												</div>
+												<div class="col-md-6" style="    margin-bottom: 15px;">
+													<input type="text" required class="form-control" placeholder="Last name" ng-model="user.lastname" />
+												</div>
+											</div>
+											<div class="row" style="margin-bottom: 15px;">
+												<div class="col-md-6">
+													<input type="text" required class="form-control" placeholder="Street address" ng-model="address.streetaddress" />
+												</div>
+												<div class="col-md-6" style="    margin-bottom: 15px;">
+													<input type="text" required class="form-control" placeholder="Street address 2 (optional)" ng-model="address.streetaddress2"
+													/>
+												</div>
+											</div>
+											<div class="row" style="margin-bottom: 15px;">
+												<div class="col-md-4">
+													<input type="text" required class="form-control" placeholder="City" ng-model="address.city" />
+												</div>
+												<div class="col-md-4">
+													<input type="text" required class="form-control" placeholder="State" ng-model="address.state" />
+												</div>
+												<div class="col-md-4">
+													<input type="text" required class="form-control" placeholder="Zip code" ng-model="address.zip" />
+												</div>
+											</div>
+											<div class="row" style="margin-bottom: 15px;">
+												<div class="col-md-6">
+													<input type="text" required class="form-control" placeholder="Phone number" ng-model="user.phone" />
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12" style="text-align:right">
+													<a ng-click="cancelAddress()" style="margin-right: 10px; cursor:pointer">Cancel</a>
+													<button class="btn btn-primary" type="submit">Done</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</uib-accordion>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<h4>Review item and shipping</h4>
+					<div class="row" ng-repeat="item in cartItems" style="margin:0px;border: 1px solid #ddd;margin-bottom: 20px;background-color: white;">
+						<div class="col-md-12" style="padding: 0;min-height: 33px;line-height: 32px;background-color: white;border-bottom: 1px solid lightgray;padding-left: 15px;">
+							<span style="color: #666;font-size: medium;">Seller</span>
+							<a href="#">{{item.sellerInfo.firstname}}</a>
+						</div>
+						<div class="col-md-12" style="padding: 15px;">
+							<div class="row" style="margin: 0;">
+								<div class="col-md-2" style="padding: 0;width: 20%;">
+									<img alt="100%x180" data-src="holder.js/100%x180" style="height: 96px;width: 96px; display: block;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTcxIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE3MSAxODAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MTgwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTU3ZjRiYjUwY2YgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNTdmNGJiNTBjZiI+PHJlY3Qgd2lkdGg9IjE3MSIgaGVpZ2h0PSIxODAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI1OS41NTQ2ODc1IiB5PSI5NC41Ij4xNzF4MTgwPC90ZXh0PjwvZz48L2c+PC9zdmc+"
+										data-holder-rendered="true">
+								</div>
+								<div class="col-md-5">
+									<h3 style="margin: 0;margin-bottom: 10px;"><a href="#">{{item.title}}</a></h3>
+									<span style="color: #888;font-size: small;">Condition:</span>
+									<span style="color: #888;font-size: small;">{{item.condition}}</span>
+								</div>
+								<div class="col-md-2" style="padding:0">
+									<label style="font-size: 85%;font-weight: normal;color: #777;">Quantity: </label>
+									<input type="text" ng-value="item.selectedQuantity" ng-change="quantityChange($index)" ng-model="quantity" style="width: 40px;
+								height: 18px;
+								background: #fff;
+								border: 1px solid #ddd;
+								box-shadow: 0 1px 0 rgba(255,255,255,0.8),inset 0 1px 2px rgba(0,0,0,0.06);
+								-webkit-border-radius: 3px;
+								-moz-border-radius: 3px;
+								border-radius: 3px;
+								margin: 0;
+								font-size: .857em;
+								padding: .2em;
+								text-align: left;" />
+									<br/>
+									<span style="color: #666;font-size: xx-small;">{{item.quantity + " available"}}</span><br/>
+									<a href="" style="cursor:pointer" ng-click="updateQuantity($index)" ng-show="updateStatus[$index]">Update</a>
+								</div>
+								<div class="col-md-2" style="text-align: right; width: 21%;padding-right: 0px;">
+									<label style="font-size: larger;">{{"$"+item.price}}</label>
+								</div>
+							</div>
+						</div>
+						<div ng-hide="numItems===1" class="col-md-12" style="text-align:right;margin-bottom:15px">
+							<a style="font-size: 1.1em; cursor:pointer" ng-click="removeItem($index)">Remove</a>
+							<!--<span style="color: #ddd;margin: 0px 6px;font-size: 1.2em;">|</span>-->
+							<!--<a href="#" style="font-size: 1.1em;"> Save for later</a>-->
+						</div>
+					</div>
+				</div>
+				<!--<div class="col-md-12"></div>-->
+			</div>
+		</div>
+		<div class="col-md-3" style="margin-top: 105px;
+            border: 1px solid lightgray;
+            background-color: white;
+            display: block;
+            padding: 20px;
+            border-radius: 3px;
+            margin-left: 10px;">
+			<div id="cart-details">
+				<table style="width: 100%;">
+					<tbody>
+						<tr class="hide">
+							<th>Label</th>
+							<th>Value</th>
+						</tr>
+						<tr>
+							<td class="l-align pb10">{{"Item ("+numItems+")"}}</td>
+							<td class="pb10" style="text-align: right;"><span>{{"$"+total}}</span></td>
+						</tr>
+						<tr style="border-bottom: 1px solid lightgray;">
+							<td class="l-align" style="padding: 15px 0px;">Shipping</td>
+							<td style="text-align: right;"><span>Free</span></td>
+						</tr>
+						<!--</tbody>
+				</table>
+			</div>
+			<div class="cart-order">
+				<div id="cart-total">
+					<table class="w100p">
+						<tbody>
+							<tr class="hide">
+								<th>label</th>
+								<th>value</th>
+							</tr>-->
+						<tr data-type="TOTAL" style="height: 50px;">
+							<td class="l-align" style="font-size: x-large;font-weight: 200;">Order total</td>
+							<td class="bold nowrap" style="text-align: right;"><span>{{"$"+total}}</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div>
+				<button style="width: 100%;color: white;font-size: large;" class="btn btn-primary" ng-class="{'disabled' : card === {} || addressLength === 0}"
+					ng-disabled="card === {} || addressLength === 0" ng-click="checkout()">Confirm and pay
+                </button>
+			</div>
+			<!---->
+			<!--<div class="cta-note main-note err" data-disabled-msg-key="NO_PAYMENT_METHOD" style="display: block;">Select a payment option</div>
+				<div class="cta-note disabled-note err" data-disabled-msg-key="EDIT_ADDRESS" style="display: none;">Edit your shipping info</div>-->
+		</div>
+	</div>
+</div>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="Nishank Singla">
+
+	<base href="/">
+	<title> Electronics, Cars, Fashion, Collectibles, Coupons and More | eBay </title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+
+	<link href="css/signin.css" rel="stylesheet">
+	<link href="css/login-register.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/angular-ui-notification.min.css">
+	<style>
+		.tab-content {
+			padding: 10px;
+			background: white;
+			border-radius: 3px;
+		}
+    
+	</style>
+
+</head>
+
+<body ng-app="ebayLab" style="padding-top: 0px;" ng-controller="indexController" ng-init="getCart()">
+	<nav class="navbar" style="margin-bottom: 10px;background: white;min-height:0px;box-shadow: 0px 4px 5px lightgray;"ng-hide="siginPage">
+		<div class="container">
+			<ul class="nav navbar-nav">
+				<div class="btn-group" uib-dropdown ng-show="loginStatus" style="padding-top: 7px;float: left;">
+					<a uib-dropdown-toggle ng-disabled="disabled" style="cursor: pointer;text-decoration: none;color: black;">
+                        Hi <b>{{firstname}}</b>! <span class="caret"></span>
+                    </a>
+					<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button" style="min-width: auto;">
+						<li><a style="color: #337ab7;" ui-sref="MyAccount" href="/MyAccount">My eBay</a></li>
+						<li class="divider"></li>
+						<li><a style="cursor:pointer;color: #337ab7;" ng-click="logout()">Sign out</a></li>
+					</ul>
+				</div>
+				<li ng-hide="loginStatus">Hi!
+					<button class="btn btn-link" role="link">
+					<a href="/Register"> Signup </a></button></li>
+				<li ng-hide="loginStatus" class="divider-vertical"><button class="btn btn-link" role="link">
+					<a href="/SignIn"> Signin</a></button></li>
+				<li class="divider-vertical"><button class="btn btn-link" role="link"> Daily Deals</button></li>
+				<li class="divider-vertical"><button class="btn btn-link" role="link"> Gift Cards</button></li>
+				<li class="divider-vertical"><button class="btn btn-link" role="link"> Sell</button></li>
+				<li class="divider-vertical"><button class="btn btn-link" role="link"> Help and Contact</button></li>
+
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a style="padding-top: 10px;padding-bottom: 10px;" href="/MyAccount">My eBay</a></li>
+				<li><a style="padding-top: 10px;padding-bottom: 10px;" href="#"><span class="glyphicon glyphicon-bell"></span></a></li>
+				<li>
+					<a style="padding-top: 10px;padding-bottom: 10px;" href="/Cart">
+						<span class="glyphicon glyphicon-shopping-cart"></span>
+						<span class="badge" ng-hide="numCartItems===0" ng-bind="numCartItems" style="margin-bottom: 3px;background-color: orange;font-size: 8px;"></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container-fluid">
+		<div class="row" ng-hide="siginPage" style="    margin-bottom: 20px;">
+			<div class="col-md-3" style="padding-left: 40px;width: 20.8%;padding-right: 0;">
+				<a class="navbar-brand" href="/" style="height: 50px;display: block;position: relative;width: 45%;padding: 0;">
+					<img role="presentation" width="250" height="200" style="clip:rect(47px, 118px, 95px, 0px); position:absolute; top:-47px;left:0"
+						alt="" src="https://ir.ebaystatic.com/rs/v/fxxj3ttftm5ltcqnto1o4baovyl.png" id="gh-logo">
+				</a>
+				<div class="btn-group" uib-dropdown is-open="status.isopen" style="    float: right;">
+					<button id="single-button" type="button" class="btn btn-default" uib-dropdown-toggle ng-disabled="disabled" style="width: 105px;word-break: normal;white-space: normal;background: transparent;border: none;text-align: left;    color: #555;    line-height: 14px;padding-top: 10px;">
+                        Shop by category <span class="caret" style="border-top: 7px dashed;margin-bottom: 16px;margin-left: 4px;border-right: 7px solid transparent;border-left: 7px solid transparent;"></span>
+                    </button>
+					<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button" style="max-height: 300px;overflow-y: auto;">
+						<!--<select style="padding:5px" ng-model="item.category" required>
+							<option value="">--Select--</option>
+							<option ng-repeat="(key,value) in categories" ng-value="key">{{value}}</option>	
+                    	</select>-->
+						<li role="menuitem" ng-repeat="(key,value) in categories"><a href="/market?category={{value}}">{{value}}</a></li>
+						<!--<li role="menuitem"><a href="#">Another action</a></li>
+						<li role="menuitem"><a href="#">Something else here</a></li>
+						<li class="divider"></li>
+						<li role="menuitem"><a href="#">Separated link</a></li>-->
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-7" style="padding: 0;">
+				
+				<div class="input-group">
+				<input type="text" class="form-control" placeholder="Search..."aria-label="..." style="padding: 10px 0 9px 8px;font-size: 16px;height: inherit;">
+				<div class="input-group-btn">
+					<button type="button" style="height: 43px;width: 160px;" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						All Categories <span class="caret"></span></button>
+					<ul class="dropdown-menu dropdown-menu-right">
+					<li><a href="#">Action</a></li>
+					<li><a href="#">Another action</a></li>
+					<li><a href="#">Something else here</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="#">Separated link</a></li>
+					</ul>
+				</div><!-- /btn-group -->
+				</div><!-- /input-group -->
+			
+				<!--<div class="input-group">-->
+				<!--<div class="input-group-btn">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+							style="padding: 10px 0 9px 4px;font-size: 16px;height: inherit;width: 50px;">
+                            All <span class="caret"></span></button>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</div>-->
+				<!--<input type="text" class="form-control" placeholder="Search..." style="padding: 10px 0 9px 8px;font-size: 16px;height: inherit;">-->
+				<!--<div class="input-group-btn">
+
+						<button type="button" class="btn btn-default" aria-label="Search" style="padding: 10px 0 9px 0px;font-size: 16px;width: 50px;text-align: center;">
+                            <span class="glyphicon glyphicon glyphicon-search"></span>
+                        </button>
+					</div>-->
+				<!--</div>-->
+			</div>
+			<div class="col-md-2">
+				<input type="submit" class="btn btn-primary" value="Search" style="background: -webkit-gradient(linear,left top,left bottom,from(#0079bc),to(#00509d));
+					height: 40px;
+					font-weight: 500;
+					text-shadow: 0 1px 0 rgba(0,0,0,.2);
+					padding: .5em 1.2em;
+					font-size: 16px;" />
+				<!--<a href="/Cart" style="float: right;margin-top: 10px;">
+					<span class="glyphicon glyphicon-shopping-cart" style="font-size: 22px;" aria-hidden="true" style="font-size:30px">
+                    </span>
+					<span class="badge" ng-hide="numCartItems===0" ng-bind="numCartItems" style="margin-bottom: 8px;background-color: orange;"></span>
+					
+				</a>-->
+
+
+			</div>
+		</div>
+	</div>
+	<div class="container">
+
+		<div ui-view></div>
+	</div>
+
+
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="js/angular.js" type="text/javascript"></script>
+	<script src="js/angular-route.min.js" type="text/javascript"></script>
+	<script src="js/ngProgress.min.js" type="text/javascript"></script>
+	<script src="js/ui-bootstrap-tpls-2.2.0.min.js" type="text/javascript"></script>
+	<script src="js/angular-ui-router.min.js" type="text/javascript"></script>
+	<script src="js/angular-ui-notification.min.js"></script>
+	<script src="app.js" type="text/javascript"></script>
+	<script src="signin-register/signinController.js"></script>
+	<script src="Profile/profileController.js"></script>
+	<script src="Sellitems/sellController.js"></script>
+	<script src="eBayMarket/marketController.js"></script>
+	<script src="eBayProduct/productController.js"></script>
+	<script src="eBayCart/cartController.js"></script>
+	<script src="eBayCheckout/checkoutController.js"></script>
+	<!--<link href="css/ebaySell.css" rel="stylesheet">-->
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<div class="container" ng-controller="marketController" ng-init="getProducts()">
+	<div class="row">
+		<div class="col-md-2"></div>
+
+		<div class="col-md-8" style="border: 1px solid #DDD;border-radius: 3px;background-color: white;box-shadow: 4px 4px 1px #EEE;margin-bottom: 20px;    padding: 20px;">
+			<div style="text-align:right" ng-show="products">
+				<h5 style="margin-right: 15px;padding-bottom: 10px;border-bottom: 1px solid lightgray;">Total Products found: <span ng-bind="productCount"></span></h5>
+			</div>
+			<div class="row" ng-repeat="product in products" style="padding: 9px 0;border-width: 1px 0;border-style: solid;border-color: transparent;border-bottom-color: #e4e4e4;color: #767676;">
+				<div class="col-md-4" style="padding: 10px;">
+					<img alt="100%x200" data-src="holder.js/100%x200" style="height: 200px;border-radius: 3px;
+							border: 1px solid #e4e4e4; width: 100%; display: block;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDI0MiAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTU3YmY5NTZkYmYgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMnB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNTdiZjk1NmRiZiI+PHJlY3Qgd2lkdGg9IjI0MiIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI4OS44NTkzNzUiIHk9IjEwNS40Ij4yNDJ4MjAwPC90ZXh0PjwvZz48L2c+PC9zdmc+"
+							data-holder-rendered="true">
+				</div>
+				<div class="col-md-6" style="padding-top: 8px;">
+					<a href="/product?pid={{product._id}}" style="word-wrap: break-word;margin: 0;font-size: 20px;line-height: 1.25;">{{product.title}}</a><br/><br/>
+					<span style="font-weight: bold;font-size: 20px;color: #333;line-height: 1.1;">
+						{{ product.price ? '$ ' + product.price : '$ ' + product.bid_price}}
+					</span><br/>
+					<span style="font-size: 12px;">Buy It Now</span><br/>
+					<span style="font-size:13px;color: #333;font-weight:bold"> Free Shipping</span>
+				</div>
+			</div>
+			<div class="row" ng-hide="products" style="padding-left: 15px;">
+				<h3 style="margin: 0;">Sorry! No product found.</h3>
+			</div>
+		</div>
+	</div>
+</div>
