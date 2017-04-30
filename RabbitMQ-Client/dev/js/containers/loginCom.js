@@ -111,7 +111,7 @@ class LoginPage extends Component {
                         </div>
                         <div className="col-md-4 col-md-offset-4">
                             <div active="activeJustified" justified="true" style={{border: "1px solid #ccc",borderRadius: "3px"}} className="ng-isolate-scope">
-                            <ul className="nav nav-tabs nav-justified">
+                                <ul className="nav nav-tabs nav-justified">
                                     <li className="active">
                                         <a data-toggle="tab" href="#signin">
                                             <i className="glyphicon glyphicon-log-in"></i> Sign in
@@ -122,77 +122,74 @@ class LoginPage extends Component {
                                             <i className="glyphicon glyphicon-list-alt"></i> Register
                                         </a>
                                     </li>
-                            </ul>
+                                </ul>
 
-                            <div className="tab-content" style={{background: "white",borderRadius: "3px",padding: "10px"}}>
-                                <div id="signin" className="tab-pane fade in active">
-                                    
-                                   {alertMessage}
-                                    
-                                    
-                                    <form role="form" style={formStyle} method="post">
-                                        <div className="form-group input-group">
-                                            <span className="input-group-addon">
-                                                    @
-                                                </span>
-                                            <input type="email" name="username" className="form-control" placeholder="Email" value={this.state.username} onChange={this.onChange} required/>
-                                        </div>
-                                        <div className="form-group input-group">
-                                            <span className="input-group-addon">
-                                                    <i className="glyphicon glyphicon-lock"></i>
-                                                </span>
-                                            <input type="password" name="password" className="form-control" placeholder="Password" value={this.state.password} onChange={this.onChange} required />
-                                        </div>
-                                        <div className="form-group text-center">
-                                            <input type="checkbox" tabIndex="3" className="" name="remember" id="remember"/>
-                                            <label htmlFor="remember"> Remember Me</label>
-                                        </div>
-                                        <div className="form-group">
-                                            <div className="row">
-                                                <div className="col-sm-12">
-                                                    <input onClick={this.handleSubmit} type="submit" name="login-submit" id="login-submit" tabIndex="4" className="form-control btn btn-primary" value="Log In"/>
+                                <div className="tab-content" style={{background: "white",borderRadius: "3px",padding: "10px"}}>
+                                    <div id="signin" className="tab-pane fade in active">
+                                        {alertMessage}
+                                        <form role="form" style={formStyle} method="post">
+                                            <div className="form-group input-group">
+                                                <span className="input-group-addon">
+                                                        @
+                                                    </span>
+                                                <input type="email" name="username" className="form-control" placeholder="Email" value={this.state.username} onChange={this.onChange} required/>
+                                            </div>
+                                            <div className="form-group input-group">
+                                                <span className="input-group-addon">
+                                                        <i className="glyphicon glyphicon-lock"></i>
+                                                    </span>
+                                                <input type="password" name="password" className="form-control" placeholder="Password" value={this.state.password} onChange={this.onChange} required />
+                                            </div>
+                                            <div className="form-group text-center">
+                                                <input type="checkbox" tabIndex="3" className="" name="remember" id="remember"/>
+                                                <label htmlFor="remember"> Remember Me</label>
+                                            </div>
+                                            <div className="form-group">
+                                                <div className="row">
+                                                    <div className="col-sm-12">
+                                                        <input onClick={this.handleSubmit} type="submit" name="login-submit" id="login-submit" tabIndex="4" className="form-control btn btn-primary" value="Log In"/>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div id="register" className="tab-pane fade">
-                                    {registerAlert}
+                                        </form>
+                                    </div>
+                                    <div id="register" className="tab-pane fade">
+                                        {registerAlert}
 
-                                    <form id="register-form" role="form" method="post" style={formStyle}>
-                                        <div className="form-group">
-                                            <input type="text" name="firstname" className="form-control" placeholder="Firstname" value={this.state.firstname} style={firstnameStyle} onChange={this.onChange} required/>
-                                            
-                                            <input type="text" name="lastname" className="form-control" placeholder="Lastname" value={this.state.lastname} style={lastnameStyle} onChange={this.onChange} required/>
-                                        </div>
-                                        <div className="form-group input-group">
-                                            <span className="input-group-addon">
-                                                    @
-                                                </span>
-                                            <input type="email" name="username" className="form-control" placeholder="Username(Email)" value={this.state.username} onChange={this.onChange} required/>
-                                        </div>
-                                        <div className="form-group input-group">
-                                            <span className="input-group-addon">
-                                                    <i className="glyphicon glyphicon-lock"></i>
-                                                </span>
-                                            <input type="password" name="password" className="form-control" placeholder="Password" value={this.state.password} onChange={this.onChange} required/>
-                                        </div>
-                                        <div className="form-group input-group">
-                                            <span className="input-group-addon">
-                                                    <i className="glyphicon glyphicon-lock"></i>
-                                                </span>
-                                            <input type="password" name="confirm_password" className="form-control" placeholder="Confirm Password" value={this.state.confirm_password} onChange={this.onChange} required/>
-                                        </div>
-                                        <div className="form-group">
-                                            <div className="row">
-                                                <div className="col-sm-12">
-                                                    <input onClick={this.handleRegister} type="submit" name="register-submit" className="form-control btn btn-primary" value="Register Now"/>
+                                        <form id="register-form" role="form" method="post" style={formStyle}>
+                                            <div className="form-group">
+                                                <input type="text" name="firstname" className="form-control" placeholder="Firstname" value={this.state.firstname} style={firstnameStyle} onChange={this.onChange} required/>
+                                                
+                                                <input type="text" name="lastname" className="form-control" placeholder="Lastname" value={this.state.lastname} style={lastnameStyle} onChange={this.onChange} required/>
+                                            </div>
+                                            <div className="form-group input-group">
+                                                <span className="input-group-addon">
+                                                        @
+                                                    </span>
+                                                <input type="email" name="username" className="form-control" placeholder="Username(Email)" value={this.state.username} onChange={this.onChange} required/>
+                                            </div>
+                                            <div className="form-group input-group">
+                                                <span className="input-group-addon">
+                                                        <i className="glyphicon glyphicon-lock"></i>
+                                                    </span>
+                                                <input type="password" name="password" className="form-control" placeholder="Password" value={this.state.password} onChange={this.onChange} required/>
+                                            </div>
+                                            <div className="form-group input-group">
+                                                <span className="input-group-addon">
+                                                        <i className="glyphicon glyphicon-lock"></i>
+                                                    </span>
+                                                <input type="password" name="confirm_password" className="form-control" placeholder="Confirm Password" value={this.state.confirm_password} onChange={this.onChange} required/>
+                                            </div>
+                                            <div className="form-group">
+                                                <div className="row">
+                                                    <div className="col-sm-12">
+                                                        <input onClick={this.handleRegister} type="submit" name="register-submit" className="form-control btn btn-primary" value="Register Now"/>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                     </div>

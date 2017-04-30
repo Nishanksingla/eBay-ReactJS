@@ -7,6 +7,8 @@ import {getLoginStatus} from '../actions/getLoginStatusAction';
 import {BrowserRouter as Router, Route } from 'react-router-dom'
 import { Link,Redirect } from 'react-router-dom'
 import market from '../containers/marketPage';
+import userAccount from '../containers/userAccount'
+import sellItem from '../containers/sellItem'
 require('../../scss/style.scss');
 import axios from 'axios';
 
@@ -56,25 +58,11 @@ class App extends Component {
                 "Travel",
                 "Video Games & Consoles",
                 "Everything Else"
-            ]
+            ];
     }
     componentDidMount(){
         debugger
         this.props.getLoginStatus();
-        // axios.get("/login/status")
-        // .then(response => {
-        //     debugger
-        //     if (response.data.user) {
-        //         this.props.user = response.data.user;
-        //     } 
-        // })
-        // .catch(error => {
-        //     debugger
-        //     console.log(error);
-            
-        // });
-        
-
     }
     handleSignOut(e){
         this.props.signout();
@@ -106,7 +94,10 @@ class App extends Component {
                                         <span className="caret"></span>
                                     </a>
                                     <ul className="dropdown-menu" role="menu" aria-labelledby="single-button" style={{minWidth: "auto"}}>
-                                        <li><a style={{color: "#337ab7"}} href="/MyAccount">My eBay</a></li>
+                                        <li>
+                                            <Link style={{color: "#337ab7"}} to="/MyAccount">My eBay</Link>
+                                            {/*<a style={{color: "#337ab7"}} href="/MyAccount">My eBay</a>*/}
+                                        </li>
                                         <li className="divider"></li>
                                         <li>
                                             <a style={{cursor:"pointer", color: "#337ab7"}} onClick={this.handleSignOut}>
@@ -123,7 +114,9 @@ class App extends Component {
 
                             </ul>
                             <ul className="nav navbar-nav navbar-right">
-                                <li><a style={{paddingTop: "10px",paddingBottom: "10px"}} href="/MyAccount">My eBay</a></li>
+                                <li>
+                                    <Link style={{paddingTop: "10px",paddingBottom: "10px"}} to="/MyAccount">My eBay</Link>
+                                </li>
                                 <li><a style={{paddingTop: "10px",paddingBottom: "10px"}} href="#"><span className="glyphicon glyphicon-bell"></span></a></li>
                                 <li>
                                     <a style={{paddingTop: "10px",paddingBottom: "10px"}} href="/Cart">
@@ -137,11 +130,11 @@ class App extends Component {
                     <div className="container-fluid">
                         <div className="row" style={{marginBottom: "20px"}}>
                             <div className="col-md-3" style={{paddingLeft: "40px",width: "20.8%",paddingRight: "0"}}>
-                                <a className="navbar-brand" href="/" style={{height: "50px",display: "block",position: "relative",width: "45%",padding: "0"}}>
+                                <Link to="/" style={{height: "50px",position: "relative",width: "45%",padding: "0"}}>
                                     <img role="presentation" width="250" height="200" style={{clip:"rect(47px, 118px, 95px, 0px)", position:"absolute", top:"-47px",left:"0"}}
                                         alt="" src="https://ir.ebaystatic.com/rs/v/fxxj3ttftm5ltcqnto1o4baovyl.png" id="gh-logo"/>
-                                </a>
-                                 
+                                </Link>
+                                
                                 <div className="btn-group" style={{float: "right"}}>
                                     <button id="single-button" type="button" 
                                     className="btn btn-default dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -186,6 +179,8 @@ class App extends Component {
                         </div>
                     </div>
                     <Route path="/market/:category" component={market}/>
+                    <Route path="/MyAccount" component={userAccount}/>
+                    <Route path="/Sell" component={sellItem}></Route>
                     <Route exact path={this.props.match.url} render={() => (
                         <div style={{marginLeft: "20%"}}>
                             <h4>Please select a category from "Shop by category" dropdown.</h4>
